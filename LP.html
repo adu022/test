@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .hidePage {
+        display: none;
+    }
+    body {
+        background-image: url(./dxy.png);
+        background-repeat: no-repeat;
+    }
+    .page {
+        margin:0 auto;
+        position:absolute;
+        left:80px;
+        top:250px;
+        width:450px;
+        height: 200px;
+        background-color: rgba(255, 255, 255, 0.4);
+        text-align:center;
+        line-height: 50px;
+    }
+    #confirm {
+        position:absolute;
+        left:150px;
+        top:170px;
+    }
+    #know {
+        position: absolute;
+        left:250px;
+        top:170px;
+    }
+</style>
+<body>
+    <div id = 'hidePage' class = "page">
+        <span>游戏人数：</span>
+        <select id="count">
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+        </select>
+        <span>狼人数：</span>
+        <select name="" id="wolfCount">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
+        <div>村民数：
+            <span id='villager'></span>
+        </div>
+        <label>
+            <input type="checkbox" id='witch' name="checkbox[]">女巫</label>
+        <label>
+            <input type="checkbox" id='guard' name="checkbox[]">守卫</label>
+        <label>
+            <input type="checkbox" id='seer' name="checkbox[]">预言家</label>
+        <label>
+            <input type="checkbox" id='hunter' name="checkbox[]">猎人</label>
+        <label>
+            <input type="checkbox" id='cupid' name="checkbox[]">丘比特</label>
+        <label>
+            <input type="checkbox" id='idiot' name="checkbox[]">白痴</label><br>
+            <input type="button" id='submit' value='submit' onClick='result()'>
+    </div>
+
+    <div id = 'getID' class = 'hidePage'>
+            <label>请输入你的游戏名：<input type="text" id = "gameID" name="请输入你的游戏名："></label><br>
+            <h3 id = "yourNumber"></h3>
+            <h4 id = "yourID"></h4>
+            <input type="button" id='confirm' value="确定">
+            <input type="button" name="" id="know" value="我知道了">
+    </div>
+
+    <div id = "end" class = 'hidePage'>
+        <h2>分配结束<br>请开始你的表演</h2>
+    </div>
+    <script>
+        var count = document.getElementById('count');
+        var index = count.selectIndex;
+        var value = count.value;
+
+        var count2 = document.getElementById('wolfCount');
+        var index2 = count2.selectIndex;
+        var value2 = count2.value;
+
+        var villager = document.getElementById('villager');
+        var checks = document.getElementsByName('checkbox[]');
+        count.onchange = function () {
+            fun();
+        }
+
+        count2.onchange = function () {
+            fun();
+        }
+
+        
+        function fun(){
+            var totalNum = count.value;
+            var werewolfNum = count2.value;
+            var villagers = totalNum - werewolfNum;
+            for (var i = 0; i < checks.length; i++) {
+                if (checks[i].checked)
+                villagers--;
+                if (villagers > 0)
+                {
+                villager.innerText = villagers;
+                }else
+            {
+                villager.innerText = '输入有误';
+            }
+            }
+        }
+        
+
+        function result(){
+            var n = 0;
+            for (var i = 0; i < checks.length; i++) {
+                if (checks[i].checked)
+                n++;
+            }
+            var werewolfNum2 = count2.value;
+            var totalNum = count.value;
+            var werewolfNum = count2.value;
+            var villagers = totalNum - werewolfNum - n;
+            var arr = [];
+            for (var i = 0; i < parseInt(werewolfNum2); i++){
+                arr.push('狼人');
+            }
+            for (var i = 0; i < parseInt(villagers); i++){
+                arr.push('村民');
+            }
+            for (var j = 0; j < checks.length; j++){
+                if (checks[j].checked){
+                    switch (checks[j].attributes.id.value) {
+                        case 'witch': arr.push('女巫'); break;
+                        case 'guard':arr.push('守卫');break;
+                        case 'seer':arr.push('预言家');break;
+                        case 'hunter':arr.push('猎人');break;
+                        case 'cupid':arr.push('丘比特');break;
+                        case 'idiot':arr.push('白痴');break;
+                    }
+                }
+            }
+            console.log(arr)
+            var hidePage = document.getElementById('hidePage');
+            var getID = document.getElementById('getID');
+            var submit = document.getElementById('submit');
+            var end = document.getElementById('end');
+            hidePage.className = 'hidePage';
+            getID.className = 'page';
+            submit.className = 'hidePage';
+            var yourID = document.getElementById('yourID');
+            var yourNumber = document.getElementById('yourNumber');
+            var i = 0;
+            var endarr = arr.length;
+            document.getElementById('confirm').onclick = function (){
+                if (i < endarr){
+                    var random1 = parseInt(Math.random()*arr.length);
+                    yourNumber.innerText = '你是'+ ++i +'号玩家';
+                    yourID .innerText = arr.splice(random1,1);
+                }
+            }
+            document.getElementById('know').onclick = function(){
+                document.getElementById('gameID').value = '';
+                yourNumber.innerText = '';
+                yourID.innerText = '';
+                if (arr.length === 0){
+                    end.className = 'page';
+                }
+            }
+        }
+        
+
+
+        /*function renderVillager () {
+            var totalNum = count.value;
+            var werewolfNum = count2.value;
+            villager.innerText = totalNum - werewolfNum - n;
+        }
+        */
+        
+    </script>
+</body>
+
+</html>
