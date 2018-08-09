@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background-image:url(./dxy.png);
+        background-repeat:no-repeat;
+    }
+    h3 {
+        
+        font-style:italic;
+        margin: 10px  5px 10px 90px;
+    }
+    #Model {
+        position:absolute;
+        top:80px;
+        left:170px;
+        width:250px;
+        height: 450px;
+        background-color:rgb(58, 123, 177,0.4);
+        border-radius:20px;
+    }
+    #display {
+        width:200px;
+        height: 25px;
+        border:1px #181717 solid;
+        border-radius:10px;
+        margin-left:25px;
+    }
+    #TG {
+        margin: 10px 25px 10px 40px;
+    }
+    #Value {
+        margin-left:20px;
+    }
+    .A {
+        padding:7px 7px;
+        margin:5px 1px 10px 25px;
+    }
+    .B {
+        padding:7px 7px;
+        margin:5px 1px 10px 25px;
+    }
+    .C {
+        padding:7px 7px;
+        margin:5px 1px 10px 25px;
+    }
+    .D {
+        padding:7px 7px;
+        margin:5px 1px 10px 25px;
+    }
+    #Add {
+        padding: 5px;
+        margin-left:20px;
+    }
+    #Sub {
+        padding: 5px;
+        margin-left:20px;
+    }
+    #Mul {
+        padding: 5px;
+        margin-left:20px;
+    }
+    #Zero {
+        margin-left:25px;
+    }
+    #Divide {
+        padding:5px;
+        margin-left:133px;
+    }
+</style>
+<body>
+    <div id="Model"><h3>小简洁</h3>
+    <div id="display"></div>
+    <input type="button" id="TG" value="退格">
+    <input type="button" id="Delete" value="清空">
+    <input type="button" id="Value" value="="><br>
+    <input type="button" id="Seven" class='A' value="7">
+    <input type="button" id="Eight" class='A' value="8">
+    <input type="button" id="Nine" class='A' value="9">
+    <input type="button" id="Add" class='A' value="＋"><br>
+    <input type="button" id="Four" class='B' value="4">
+    <input type="button" id="Five" class='B' value="5">
+    <input type="button" id="Six" class='B' value="6">
+    <input type="button" id="Sub" class='B' value="－"><br>
+    <input type="button" id="One" class='C' value="1">
+    <input type="button" id="Two" class='C' value="2">
+    <input type="button" id="Three" class='C' value="3">
+    <input type="button" id="Mul" class='C' value=" × "><br>
+    <input type="button" id="Zero" class='D' value="0">
+    <input type="button" id="Divide" class='D' value=" ÷ ">
+    </div>
+    <script type="text/javascript">
+    var content = '';
+    var Number = '';
+    function contentDxy(dxy){
+        switch(dxy){
+            case '÷':content += '÷';Number +='/';break;
+            case '×':content += '×';Number += '*';break;
+            default:content += dxy;Number += dxy;break;
+        }
+        display.innerText = content;
+    }
+    var Num1 = document.getElementById('One');
+    var Num2 = document.getElementById('Two');
+    var Num3 = document.getElementById('Three');
+    var Num4 = document.getElementById('Four');
+    var Num5 = document.getElementById('Five');
+    var Num6 = document.getElementById('Six');
+    var Num7 = document.getElementById('Seven');
+    var Num8 = document.getElementById('Eight');
+    var Num9 = document.getElementById('Nine');
+    var Num0 = document.getElementById('Zero');
+    var a = document.getElementById('Add');
+    var b = document.getElementById('Sub');
+    var c = document.getElementById('Mul');
+    var d = document.getElementById('Divide');
+    var value = document.getElementById('Value');
+    var show1 = document.getElementById('display');
+    var show2 = document.getElementById('TG');
+    Num1.onclick = function(){
+        contentDxy('1');
+    }
+    Num2.onclick = function(){
+        contentDxy('2');
+    }
+    Num3.onclick = function(){
+        contentDxy('3');
+    }
+    Num4.onclick = function(){
+        contentDxy('4');
+    }
+    Num5.onclick = function(){
+        contentDxy('5');
+    }
+    Num6.onclick = function(){
+        contentDxy('6');
+    }
+    Num7.onclick = function(){
+        contentDxy('7');
+    }
+    Num8.onclick = function(){
+        contentDxy('8');
+    }
+    Num9.onclick = function(){
+        contentDxy('9');
+    }
+    Num0.onclick = function(){
+        contentDxy('0');
+    }
+    a.onclick = function(){
+        contentDxy('+');
+    }
+    b.onclick = function(){
+        contentDxy('－');
+    }
+    c.onclick = function(){
+        contentDxy('×');
+    }
+    d.onclick = function(){
+        contentDxy('÷');
+    }
+    Delete.onclick = function(dxy){
+        content = '';
+        Number = '';
+        display.innerText.value = "";
+        
+    }
+    TG.onclick = function(dxy){
+
+    }
+        value.onclick = function(){
+            display.innerText = content + '=' + eval(Number);
+            content = '';
+            Number = '';
+        }
+    </script>
+</body>
+</html>
